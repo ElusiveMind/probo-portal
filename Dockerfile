@@ -16,9 +16,6 @@ ENV TERM xterm
 # Fix command line compile issue with bundler.
 ENV LC_ALL en_US.utf8
 
-# Create the Probo user for the adding in of all our Probo daemons.
-RUN useradd -ms /bin/bash probo
-
 # Install and enable repositories RUN yum -y update && \
 RUN yum -y install epel-release && \
   rpm -Uvh https://centos7.iuscommunity.org/ius-release.rpm && \
@@ -33,7 +30,6 @@ RUN yum -y install \
   vim \
   wget \
   gettext \
-  docker-client \
   gd-devel.x86_64 \
   mod_ssl.x86_64
 
