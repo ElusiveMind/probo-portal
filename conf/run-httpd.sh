@@ -1,8 +1,19 @@
 #!/bin/bash
 
-mkdir /var/www/html/web/modules/custom
-git clone https://github.com/ElusiveMind/probo-drupal.git /var/www/html/web/modules/custom
-git clone https://github.com/ElusiveMind/jupither.git /var/www/html/web/themes
+# Initialize MariaDB and install our database for use by Drupal.
+mysql_install_db --user=mysql
+mysqld_safe --user=mysql &
+sleep 15
+mysqladmin -uroot password 'proboci'
+echo "CREATE DATABASE probo" | mysql -uroot -pproboci
+
+# Get Drupal from our composer files.
+rm -rf /var/www/html
+composer create-project drupal-composer/drupal-project:8.x-dev /var/www/html --stability dev --no-interaction
+
+# Do the base installation of Drupal
+drush -y -r /var/www/html/web si standard --db-url=mysql://root:proboci@localhost/probo --account-pass="proboci" --site-name="Open Source Probo Portal"
+chown -R apache:apache /var/www/html
 
 # Make sure we're not confused by old, incompletely-shutdown httpd
 # context after restarting the container.  httpd won't start correctly
