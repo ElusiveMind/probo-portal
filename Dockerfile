@@ -5,7 +5,7 @@ LABEL name="Containerized Open Source Probo.CI Server"
 LABEL description="This is our Docker container for the open source version of ProboCI."
 LABEL author="Michael R. Bagnall <mrbagnall@icloud.com>"
 LABEL vendor="ProboCI, LLC."
-LABEL version="0.04"
+LABEL version="0.05"
 
 # Set up our standard binary paths.
 ENV PATH /usr/local/src/vendor/bin/:/usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -25,9 +25,8 @@ RUN yum -y install epel-release && \
 RUN yum -y install \
   curl \
   git2u \
-  postgresql.x86_64 \
-  net-tools \
-  vim \
+  mariadb101u-server.x86_64 \
+  which \
   wget \
   gettext \
   gd-devel.x86_64 \
@@ -40,19 +39,18 @@ RUN yum -y install \
   php71u-imap \
   php71u-mbstring \
   php71u-mcrypt \
-  php71u-pgsql \
+  php71u-mysqlnd \
   php71u-odbc \
   php71u-pear \
   php71u-pecl-imagick \
   php71u-pecl-zendopcache \
-  php71u-pecl-redis \
   php71u-json
 
 # Install Composer and Drush 
 RUN curl -sS https://getcomposer.org/installer | php -- \
   --install-dir=/usr/local/bin \
   --filename=composer \
-  --version=1.2.0 && \
+  --version=1.6.2 && \
   composer \
   --working-dir=/usr/local/src/ \
   global \
@@ -65,11 +63,13 @@ RUN curl https://drupalconsole.com/installer -L -o /drupal.phar
 RUN cp /drupal.phar /bin/drupal
 RUN chmod 755 /bin/drupal
 
-EXPOSE 8080 8443
-
 # Move our Apache and PHP configuration into position.
 COPY etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf
 COPY etc/php.ini /etc/php.ini
+
+COPY docroot /var/www/html/web/
+RUN chmod -R 775 /var/www/html
+RUN chown -R apache:apache /var/www/html
 
 # Simple startup script to avoid some issues observed with container restart 
 ADD conf/run-httpd.sh /run-httpd.sh
