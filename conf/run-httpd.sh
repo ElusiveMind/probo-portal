@@ -7,6 +7,10 @@ sleep 15
 mysqladmin -uroot password 'proboci'
 echo "CREATE DATABASE probo" | mysql -uroot -pproboci
 
+# Get Drupal from our composer files.
+rm -rf /var/www/html
+composer create-project drupal-composer/drupal-project:8.x-dev /var/www/html --stability dev --no-interaction
+
 # Do the base installation of Drupal
 drush -y -r /var/www/html/web si standard --db-url=mysql://root:proboci@localhost/probo --account-pass="proboci" --site-name="Open Source Probo Portal"
 chown -R apache:apache /var/www/html

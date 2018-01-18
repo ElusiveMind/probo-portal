@@ -67,9 +67,7 @@ RUN chmod 755 /bin/drupal
 COPY etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf
 COPY etc/php.ini /etc/php.ini
 
-COPY docroot /var/www/html/web/
-RUN chmod -R 775 /var/www/html
-RUN chown -R apache:apache /var/www/html
+RUN mkdir -p /var/www/html/web
 
 # Simple startup script to avoid some issues observed with container restart 
 ADD conf/run-httpd.sh /run-httpd.sh
