@@ -1,7 +1,7 @@
 FROM centos:7
 
 # Set our our meta data for this container.
-LABEL name="Containerized Open Source Probo.CI Server"
+LABEL name="Containerized Drupal Portal User Interface for ProboCI OSS Server"
 LABEL description="This is our Docker container for the open source version of ProboCI."
 LABEL author="Michael R. Bagnall <mrbagnall@icloud.com>"
 LABEL vendor="ProboCI, LLC."
