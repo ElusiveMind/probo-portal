@@ -2336,7 +2336,7 @@ th{
 .bg-pale-dark{
   background-color:#ebebeb; }
 
-.prbo-blue{
+.probo-blue{
   background-color:#3276b6; }
 
 .probo-blue-dark{
@@ -2345,7 +2345,7 @@ th{
 .probo-midnight{
   background-color:#2e263b; }
 
-.probo-purple-darkest{
+table th .probo-purple-darkest{
   background-color:#33001d; }
 
 .probo-purple-dark{
@@ -3423,8 +3423,7 @@ th{
 .table-striped tbody > tr:nth-child(odd) > th{
   background-color:#f7f7f7; }
 
-.table-hover tbody tr:hover > td,
-.table-hover tbody tr:hover > th{
+.table-hover tbody tr:hover > td{
   background-color:#f7f7f7; }
 
 table td[class*="span"],

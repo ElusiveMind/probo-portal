@@ -15,6 +15,63 @@
 }
 
 #content {
-  width: 1024px;
+  width: 80%;
   margin: 0px auto;
+}
+
+.probo-text-green-darkest {
+  color: #4a986e
+}
+
+.probo-text-green {
+  color: #9ac36c;
+}
+
+.probo-text-dark {
+  color: #a83028;
+}
+
+.probo-text-soft-peach {
+  color: #efe6eb; 
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+  text-align: right;
+}
+
+.clear {
+  clear: both;
+}
+
+@media screen and (min-width: 769px){
+  .build-details {
+    display: block;
+  }
+  .build-links {
+    display: none;
+  }
+  p.build-information {
+    font-size: 0.9em;
+    margin: 0px;
+    padding: 0px;
+  }
+}
+
+@media screen and (max-width: 769px){
+  .build-details {
+    display: none;
+  }
+  .build-links {
+    display: block;
+  }
+  p.build-information {
+    font-size: 0.8em;
+    margin: 0px;
+    padding: 0px;
+  }
 }
