@@ -16,6 +16,8 @@
 
 #content {
   width: 80%;
+  max-width: 1024px;
+  min-width: 320px;
   margin: 0px auto;
 }
 
@@ -44,9 +46,28 @@
   text-align: right;
 }
 
+.center,
+td.center {
+  text-align: center;
+}
+
 .clear {
   clear: both;
 }
+
+.table-hover tr td.td-repository:hover {
+  background-color: #ebebeb;
+}
+
+.table-hover tr td.td-active-builds:hover {
+  background-color: #ebebeb;
+}
+
+.table-hover tr td.td-archive-error-builds:hover {
+  background-color: #ebebeb;
+}
+
+
 
 @media screen and (min-width: 769px){
   .build-details {
@@ -60,6 +81,19 @@
     margin: 0px;
     padding: 0px;
   }
+  .repository {
+    min-width: 70%;
+    font-size: 0.9em;
+  }
+  .active-builds {
+    font-size: 0.9em;
+    white-space: nowrap;
+  }
+  .archive-error-builds {
+    font-size: 0.9em;
+    white-space: nowrap;
+  }
+  
 }
 
 @media screen and (max-width: 769px){
@@ -73,5 +107,17 @@
     font-size: 0.8em;
     margin: 0px;
     padding: 0px;
+  }
+  .repository {
+    min-width: 70%;
+    font-size: 0.7em;
+  }
+  .active-builds {
+    font-size: 0.7em;
+    white-space: nowrap;
+  }
+  .archive-error-builds {
+    font-size: 0.7em;
+    white-space: nowrap;
   }
 }
