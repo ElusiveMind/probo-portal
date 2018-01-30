@@ -1,3 +1,15 @@
+.table {
+  margin-bottom: 0px;
+}
+
+.details-build-details {
+  margin-bottom: 15px !important;
+}
+
+.inline {
+  display: inline;
+}
+
 .always-on-top {
   top: 0px;
   position: fixed;
@@ -37,6 +49,14 @@
   color: #efe6eb; 
 }
 
+.probo-build-details {
+  width: 100%;
+  background-color: #000000;
+  color: #FFFFFF;
+  padding: 0px 15px !important;
+  line-height: 1.1em;
+}
+
 .left {
   float: left;
 }
@@ -55,6 +75,10 @@ td.center {
   clear: both;
 }
 
+.full-width {
+  width: 100%;
+}
+
 .table-hover tr td.td-repository:hover {
   background-color: #ebebeb;
 }
@@ -66,8 +90,6 @@ td.center {
 .table-hover tr td.td-archive-error-builds:hover {
   background-color: #ebebeb;
 }
-
-
 
 @media screen and (min-width: 769px){
   .build-details {
@@ -93,7 +115,6 @@ td.center {
     font-size: 0.9em;
     white-space: nowrap;
   }
-  
 }
 
 @media screen and (max-width: 769px){
