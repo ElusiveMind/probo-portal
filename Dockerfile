@@ -5,7 +5,7 @@ LABEL name="Containerized Drupal Portal User Interface for ProboCI OSS Server"
 LABEL description="This is our Docker container for the open source version of ProboCI."
 LABEL author="Michael R. Bagnall <mrbagnall@icloud.com>"
 LABEL vendor="ProboCI, LLC."
-LABEL version="0.05"
+LABEL version="0.06"
 
 # Set up our standard binary paths.
 ENV PATH /usr/local/src/vendor/bin/:/usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
