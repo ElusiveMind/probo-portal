@@ -9,29 +9,30 @@ var React = require('react');
 var Step = require('./Step');
 
 class Steps extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      steps: props.steps
+    }
+  }
 
   render() {
-
-    var steps = this.props.steps;
-
-    steps = steps.map(function(item, index) {
+    var steps = this.state.steps.map(function(item, index) {
       return (
         <Step 
+          key = { index }
           statusIcon = { item.statusIcon }
           statusColor = { item.statusColor }
-          url = { item.url }
-
         />
       );
     }.bind(this));
 
-
     return (
-      <div class="right">
+      <div className="right">
       { steps }
-      <div class="clear"></div>
-          <button class="button button--success disabled button-sm" onclick="window.location.href='build-details.html'">View Build</button>
-          <button class="button button--success button-sm" onclick="window.location.href='build-details.html'">Build Details</button>
+      <div className="clear"></div>
+          <button className="button button--success disabled button-sm">View Build</button>
+          <button className="button button--success button-sm">Build Details</button>
       </div>
     );
   }

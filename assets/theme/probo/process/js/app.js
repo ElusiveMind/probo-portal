@@ -19,15 +19,16 @@ var Builds = require('./Builds');
  * @author [Michael R. Bagnall](https://www.michaelbagnall.com)
  */
 class RepositoryBuilds extends React.Component {
-  getInitialState() {
-    return {
+  constructor(props) {
+    super(props);
+    this.state = {
       repositoryId: window.repositoryID,
       repositoryName: '',
       builds: []
     }
   }
 
-  componentDidMount() {
+  tick() {
     this.serverRequest = $.get('./js/data.json', function(result) {
       this.setState({
         repositoryName: result.repositoryName,
@@ -36,13 +37,17 @@ class RepositoryBuilds extends React.Component {
     }.bind(this));
   }
 
+  componentDidMount() {
+    this.interval = setInterval(this.tick.bind(this), 1000);
+  }
+
   componentWillUnmount() {
     this.serverRequest.abort();
   }
 
   render() {
     var builds = this.state.builds;
-    builds = builds.map(function(item, index) {
+    var thebuilds = builds.map(function(item, index) {
       return (
         <Builds 
           key = { index }
@@ -52,11 +57,15 @@ class RepositoryBuilds extends React.Component {
     }.bind(this));
 
     return (
-      <table class="table table-hover">
-        <tr>
-          <th colspan="2" class="probo-purple-dark probo-text-soft-peach">Build Information For { this.state.repositoryName }</th>
-        </tr>
-        { builds }
+      <table className="table table-hover">
+        <thead>
+          <tr>
+            <th colSpan="2" className="probo-purple-dark probo-text-soft-peach">Build Information For { this.state.repositoryName }</th>
+          </tr>
+        </thead>
+        <tbody>
+          { thebuilds }
+        </tbody>
       </table>
     );
   }

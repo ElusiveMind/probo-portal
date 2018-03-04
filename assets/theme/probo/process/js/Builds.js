@@ -8,27 +8,34 @@ var React = require('react');
 
 var Steps = require('./Steps');
 
-class Builds extends React.Component {  
+class Builds extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      build: props.build
+    }
+  }
   render() {
     return (
       <tr>
         <td>
-          <span class="h4">build.pullRequestName</span><br />
-            <p class="build-information">
-              <strong>Build URL:</strong> build.URL<br />
-              <span class="f-italic"><strong>Pull Request:</strong> build.pullRequestURL</span>
-            </p>
-          <div class="build-links">
-            <Steps steps = { this.props.build.steps } />
-            <div class="clear"></div>
+          <span className="h4">{ this.state.build.pullRequestName }</span><br />
+          <p className="build-information">
+            <strong>Build URL:</strong> { this.state.build.URL }<br />
+            <span className="f-italic"><strong>Pull Request:</strong> { this.state.build.pullRequestURL }</span>
+          </p>
+          <div className="build-links">
+            <Steps steps = { this.state.build.steps } />
+            <div className="clear"></div>
           </div>
         </td>
         <td>
-          <div class="build-details">
-            <Steps steps = { this.props.build.steps } />
-            <div class="clear"></div>
+          <div className="build-details">
+            <Steps steps = { this.state.build.steps } />
+            <div className="clear"></div>
           </div>
         </td>
+
       </tr>
     )
   }

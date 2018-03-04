@@ -7,6 +7,14 @@
 var React = require('react');
 
 class Step extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      statusIcon: props.statusIcon,
+      statusColor: props.statusColor
+    };
+  }
+  
   /**
    * fa-times-circle - X in a circle
    * fa-minus-circle - - in a circle
@@ -16,8 +24,9 @@ class Step extends React.Component {
    * none - dark grey
    */
   render() {
+    var iconClass = "fa " + this.state.statusIcon + " " + this.state.statusColor;
     return (
-      <div class="right"><i class="fa { this.props.statusIcon } { this.props.statusColor }" aria-hidden="true"></i></div>
+      <div className="right"><i className={ iconClass } aria-hidden="true"></i></div>
     );
   }
 }
