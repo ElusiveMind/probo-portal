@@ -1,0 +1,71 @@
+/** 
+ * ProboCI - ReactJS Interface
+ * by Michael R. Bagnall <mrbagnall@icloud.com>
+ * Twitter: @mbagnall17
+ */
+
+// Load in our required items to run.
+var React = require('react');
+var ReactDOM = require('react-dom');
+var _ = require('lodash');
+
+// Load in our sub components.
+var Builds = require('./Builds');
+
+/** 
+ * The list of builds in a specific repository.
+ * 
+ * @version 0.0.1
+ * @author [Michael R. Bagnall](https://www.michaelbagnall.com)
+ */
+class RepositoryBuilds extends React.Component {
+  getInitialState() {
+    return {
+      repositoryId: window.repositoryID,
+      repositoryName: '',
+      builds: []
+    }
+  }
+
+  componentDidMount() {
+    this.serverRequest = $.get('./js/data.json', function(result) {
+      this.setState({
+        repositoryName: result.repositoryName,
+        builds: result.builds
+      });
+    }.bind(this));
+  }
+
+  componentWillUnmount() {
+    this.serverRequest.abort();
+  }
+
+  render() {
+    var builds = this.state.builds;
+    builds = builds.map(function(item, index) {
+      return (
+        <Builds 
+          key = { index }
+          build = { item }
+        />
+      );
+    }.bind(this));
+
+    return (
+      <table class="table table-hover">
+        <tr>
+          <th colspan="2" class="probo-purple-dark probo-text-soft-peach">Build Information For { this.state.repositoryName }</th>
+        </tr>
+        { builds }
+      </table>
+    );
+  }
+}
+
+/**
+ * Render our main interface in the #content DOM element.
+ */
+ReactDOM.render(
+  <RepositoryBuilds />,
+  document.getElementById('content')
+);
