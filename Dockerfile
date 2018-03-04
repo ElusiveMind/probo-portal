@@ -34,6 +34,7 @@ RUN yum -y install \
 
 RUN yum -y install \
   php71u \
+  php71u-cli \
   php71u-curl \
   php71u-gd \
   php71u-imap \
