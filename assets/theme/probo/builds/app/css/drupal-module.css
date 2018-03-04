@@ -1,0 +1,144 @@
+.table {
+  margin-bottom: 0px;
+}
+
+.details-build-details {
+  margin-bottom: 15px !important;
+}
+
+.inline {
+  display: inline;
+}
+
+.always-on-top {
+  top: 0px;
+  position: fixed;
+}
+
+.always-on-bottom {
+  bottom: 0px;
+  position: fixed;
+  width: 100%;
+}
+
+.always-in-the-middle {
+  padding-bottom: 136px;
+  padding-top: 75px;
+}
+
+#content {
+  width: 80%;
+  max-width: 1024px;
+  min-width: 320px;
+  margin: 0px auto;
+}
+
+.probo-text-green-darkest {
+  color: #4a986e
+}
+
+.probo-text-green {
+  color: #9ac36c;
+}
+
+.probo-text-dark {
+  color: #a83028;
+}
+
+.probo-text-soft-peach {
+  color: #efe6eb; 
+}
+
+.probo-build-details {
+  width: 100%;
+  background-color: #000000;
+  color: #FFFFFF;
+  padding: 0px 15px !important;
+  line-height: 1.1em;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+  text-align: right;
+}
+
+.center,
+td.center {
+  text-align: center;
+}
+
+.clear {
+  clear: both;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.table-hover tr td.td-repository:hover {
+  background-color: #ebebeb;
+}
+
+.table-hover tr td.td-active-builds:hover {
+  background-color: #ebebeb;
+}
+
+.table-hover tr td.td-archive-error-builds:hover {
+  background-color: #ebebeb;
+}
+
+@media screen and (min-width: 769px){
+  .build-details {
+    display: block;
+  }
+  .build-links {
+    display: none;
+  }
+  p.build-information {
+    font-size: 0.9em;
+    margin: 0px;
+    padding: 0px;
+  }
+  .repository {
+    min-width: 70%;
+    font-size: 0.9em;
+  }
+  .active-builds {
+    font-size: 0.9em;
+    white-space: nowrap;
+  }
+  .archive-error-builds {
+    font-size: 0.9em;
+    white-space: nowrap;
+  }
+}
+
+@media screen and (max-width: 769px){
+  .build-details {
+    display: none;
+  }
+  .build-links {
+    display: block;
+  }
+  p.build-information {
+    font-size: 0.8em;
+    margin: 0px;
+    padding: 0px;
+  }
+  .repository {
+    min-width: 70%;
+    font-size: 0.7em;
+  }
+  .active-builds {
+    font-size: 0.7em;
+    white-space: nowrap;
+  }
+  .archive-error-builds {
+    font-size: 0.7em;
+    white-space: nowrap;
+  }
+}
