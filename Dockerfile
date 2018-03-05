@@ -5,7 +5,7 @@ LABEL name="Containerized Drupal Portal User Interface for ProboCI OSS Server"
 LABEL description="This is our Docker container for the open source version of ProboCI."
 LABEL author="Michael R. Bagnall <mrbagnall@icloud.com>"
 LABEL vendor="ProboCI, LLC."
-LABEL version="0.06"
+LABEL version="0.07"
 
 # Set up our standard binary paths.
 ENV PATH /usr/local/src/vendor/bin/:/usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -69,6 +69,10 @@ COPY etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf
 COPY etc/php.ini /etc/php.ini
 
 RUN mkdir -p /var/www/html/web
+
+# Move phpmyadmin into place because we're going to need it for development.
+COPY phpmyadmin /var/www/mysql-admin
+RUN chown -R apache:apache /var/www/mysql-admin
 
 # Simple startup script to avoid some issues observed with container restart 
 ADD conf/run-httpd.sh /run-httpd.sh
