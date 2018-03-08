@@ -1,8 +1,0 @@
-name = Probo
-description = The ReactJS based theme for the Probo front end.
-version = 7.x-1.0
-core = 7.x
-
-stylesheets[all][] = app/css/probo.css
-stylesheets[all][] = app/css/drupal-module.css
-scripts[] = app/js/app-min.js

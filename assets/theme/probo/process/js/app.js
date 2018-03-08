@@ -29,7 +29,7 @@ class RepositoryBuilds extends React.Component {
   }
 
   tick() {
-    this.serverRequest = $.get('./js/data.json', function(result) {
+    this.serverRequest = $.get('https://proofroom.net/data.json', function(result) {      
       this.setState({
         repositoryName: result.repositoryName,
         builds: result.builds
@@ -38,6 +38,7 @@ class RepositoryBuilds extends React.Component {
   }
 
   componentDidMount() {
+    
     this.interval = setInterval(this.tick.bind(this), 1000);
   }
 
