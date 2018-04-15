@@ -4,45 +4,36 @@
  * Twitter: @mbagnall17
  */
 
-var React = require('react');
-var Step = require('./Step');
+import React, { Component } from 'react';
+import Step from './Step';
+import $ from "jquery";
 
-class Steps extends React.Component {
+class Steps extends Component {
   constructor(props) {
     super(props);
     this.state = {
       buildID: props.buildID,
       steps: []
     };
-    this.tick = this.tick.bind(this);
     this.tick();
   }
 
   tick() {
-    var steps = [];
-    var stepsToUse;
-    
     this.serverRequest = $.get('./json/status.json?nocache=' + (new Date()).getTime(), function(result) {
       var buildID = this.state.buildID;
       result.builds.map(function(item, index) {
-        steps = item.steps;
-        if (item.buildID == buildID) {
-          stepsToUse = steps;
+        if (item.buildID === buildID) {
+          this.setState({
+            steps: item.steps
+          });
         }
-      }); 
-      this.setState({
-        steps: stepsToUse
-      });
+        return item;
+      }.bind(this));
     }.bind(this));
-    this.forceUpdate();
   }
 
   componentDidMount() {
     this.interval = setInterval(this.tick.bind(this), 5000);
-  }
-
-  componentWillUnmount() {
-    this.serverRequest.abort();
   }
 
   render() {
@@ -54,7 +45,7 @@ class Steps extends React.Component {
           statusColor = { item.statusColor }
         />
       );
-    }.bind(this));
+    });
 
     return (
       <div className="right">
@@ -67,4 +58,4 @@ class Steps extends React.Component {
   }
 }
 
-module.exports = Steps;
+export default Steps;

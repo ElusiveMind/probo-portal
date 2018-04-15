@@ -4,10 +4,10 @@
  * Twitter: @mbagnall17
  */
 
-var React = require('react');
-var Steps = require('./Steps');
+import React, { Component } from 'react';
+import Steps from './Steps';
 
-class Builds extends React.Component {
+class Builds extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -47,4 +47,4 @@ class Builds extends React.Component {
   }
 };
 
-module.exports = Builds;
+export default Builds;
