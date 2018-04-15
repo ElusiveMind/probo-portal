@@ -4,9 +4,9 @@
  * Twitter: @mbagnall17
  */
 
-var React = require('react');
+import React, { Component } from 'react';
 
-class Step extends React.Component {
+class Step extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,11 +24,11 @@ class Step extends React.Component {
    * none - dark grey
    */
   render() {
-    var iconClass = "fa " + this.state.statusIcon + " " + this.state.statusColor;
+    var iconClass = "fa " + this.props.statusIcon + " " + this.props.statusColor;
     return (
       <div className="right"><i className={ iconClass } aria-hidden="true"></i></div>
     );
   }
 }
 
-module.exports = Step;
+export default Step;
