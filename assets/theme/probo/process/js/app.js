@@ -1,7 +1,7 @@
 /** 
  * ProboCI - ReactJS Interface
  * by Michael R. Bagnall <mrbagnall@icloud.com>
- * Twitter: @mbagnall17
+ * Twitter: @mbags17
  */
 
 // Load in our required items to run.
@@ -18,27 +18,28 @@ var Builds = require('./Builds');
  * @version 0.0.1
  * @author [Michael R. Bagnall](https://www.michaelbagnall.com)
  */
+
 class RepositoryBuilds extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      repositoryId: window.repositoryID,
       repositoryName: '',
       builds: []
     }
+    this.tick();
   }
 
   tick() {
-    this.serverRequest = $.get('./js/data.json', function(result) {
+    this.serverRequest = $.get('./json/builds.json?nocache=' + (new Date()).getTime(), function(result) {
       this.setState({
-        repositoryName: result.repositoryName,
-        builds: result.builds
+        builds: result.builds,
+        repositoryName: result.repositoryName
       });
     }.bind(this));
   }
 
   componentDidMount() {
-    this.interval = setInterval(this.tick.bind(this), 1000);
+    this.interval = setInterval(this.tick.bind(this), 60000);
   }
 
   componentWillUnmount() {
@@ -54,6 +55,7 @@ class RepositoryBuilds extends React.Component {
           build = { item }
         />
       );
+      
     }.bind(this));
 
     return (

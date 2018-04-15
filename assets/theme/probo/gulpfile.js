@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
     browserify = require('gulp-browserify'),
-    webserver = require('gulp-webserver');
+    webserver = require('gulp-webserver'),
+    babel = require('gulp-babel');
     
 var src = './process',
     app = './builds/app';
@@ -40,3 +41,13 @@ gulp.task('webserver', function() {
 });
 
 gulp.task('default', ['watch', 'html', 'js', 'css', 'webserver']);
+gulp.task('nowatch', ['html', 'js', 'css', 'webserver']);
+gulp.task('compile', ['html', 'js', 'css']);
+
+gulp.task('compress', function() {
+    gulp.src( 'builds/app/js/app.js' )
+        .pipe(babel({
+            presets: ['env'],
+            comments: false
+        }))
+        .pipe(gulp.dest('dist')) } );
