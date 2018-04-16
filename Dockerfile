@@ -45,7 +45,8 @@ RUN yum -y install \
   php71u-pear \
   php71u-pecl-imagick \
   php71u-pecl-zendopcache \
-  php71u-json
+  php71u-json \
+  php71u-xml
 
 # Install Composer and Drush 
 RUN curl -sS https://getcomposer.org/installer | php -- \
