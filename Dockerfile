@@ -73,9 +73,9 @@ COPY phpmyadmin /var/www/mysql-admin
 RUN chown -R apache:apache /var/www/mysql-admin
 
 # Install Drupal via composer and do so as the apache user.
-RUN rm -rf /var/www/html && \
-    composer create-project drupal-composer/drupal-project:8.x-dev /var/www/html --stability dev --no-interaction && \
-    chown -R apache:apache /var/www/html
+RUN rm -rf /var/www/html
+RUN composer create-project drupal-composer/drupal-project:8.x-dev /var/www/html --stability dev --no-interaction
+RUN chown -R apache:apache /var/www/html
 
 # Simple startup script to avoid some issues observed with container restart 
 ADD conf/run-httpd.sh /run-httpd.sh
