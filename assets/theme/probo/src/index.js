@@ -14,7 +14,7 @@ import $ from "jquery";
 /** 
  * The list of builds in a specific repository.
  * 
- * @version 0.0.1
+ * @version 0.0.2
  * @author [Michael R. Bagnall](https://www.michaelbagnall.com)
  */
 
@@ -28,8 +28,10 @@ class RepositoryBuilds extends Component {
     this.tick();
   }
 
-  tick() {
-    this.serverRequest = $.get('./json/builds.json?nocache=' + (new Date()).getTime(), function(result) {
+  tick() {probo-api/repository-status/{repository_id}/{token}
+    var repository_status = getRepository();
+    var token = getToken();
+    this.serverRequest = $.get('https://www.proofroom.net/probo-api/repository-status/' + $repository_status + '/' + $token + '?nocache=' + (new Date()).getTime(), function(result) {      
       this.setState({
         builds: result.builds,
         repositoryName: result.repositoryName
@@ -38,7 +40,7 @@ class RepositoryBuilds extends Component {
   }
 
   componentDidMount() {
-    this.interval = setInterval(this.tick.bind(this), 60000);
+    this.interval = setInterval(this.tick.bind(this), 1000);
   }
 
   componentWillUnmount() {
@@ -68,6 +70,18 @@ class RepositoryBuilds extends Component {
         </tbody>
       </table>
     );
+  }
+  
+  getRepository() {
+    var pathArray = window.location.pathname.split( '/' );
+    alert(pathArray[5]));
+    return pathArray[5];
+  }
+
+  getToken() {
+    var pathArray = window.location.pathname.split( '/' );
+    alert(pathArray[6]));
+    return pathArray[6];
   }
 }
 

@@ -19,7 +19,9 @@ class Steps extends Component {
   }
 
   tick() {
-    this.serverRequest = $.get('./json/status.json?nocache=' + (new Date()).getTime(), function(result) {
+    var repository = $this.$repositorygetRepository();
+    var token = $this.getToken();
+    this.serverRequest = $.get('https://www.proofroom.net/probo-api/repository-build-status/' + $repository + '/' + $token + '?nocache=' + (new Date()).getTime(), function(result) {
       var buildID = this.state.buildID;
       result.builds.map(function(item, index) {
         if (item.buildID === buildID) {
@@ -34,6 +36,18 @@ class Steps extends Component {
 
   componentDidMount() {
     this.interval = setInterval(this.tick.bind(this), 5000);
+  }
+
+  getRepository() {
+    var pathArray = window.location.pathname.split( '/' );
+    alert(pathArray[5]);
+    return pathArray[5];
+  }
+
+  getToken() {
+    var pathArray = window.location.pathname.split( '/' );
+    alert(pathArray[6]);
+    return pathArray[6];
   }
 
   render() {
