@@ -22,19 +22,17 @@ class RepositoryBuilds extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      repositoryName: '',
+      token: 'SailAway77',
+      rid: '1',
       builds: []
     }
     this.tick();
   }
 
-  tick() {probo-api/repository-status/{repository_id}/{token}
-    var repository_status = getRepository();
-    var token = getToken();
-    this.serverRequest = $.get('https://www.proofroom.net/probo-api/repository-status/' + $repository_status + '/' + $token + '?nocache=' + (new Date()).getTime(), function(result) {      
+  tick() {
+    this.serverRequest = $.get('https://www.proofroom.net/probo-api/repository-status/' + this.state.rid+ '/' + this.state.token, function(result) {
       this.setState({
-        builds: result.builds,
-        repositoryName: result.repositoryName
+        builds: result
       });
     }.bind(this));
   }
@@ -49,11 +47,16 @@ class RepositoryBuilds extends Component {
 
   render() {
     var builds = this.state.builds;
-    var thebuilds = builds.map(function(item, index) {
+
+    var buildsDisplay = builds.map(function(item, index) {
       return (
         <Builds 
           key = {index}
-          build = {item}
+          steps = {item.steps}
+          buildID = {item.buildID}
+          pullRequestName = {item.pullRequestName}
+          URL = {item.URL}
+          pullRequestURL = {item.pullRequestURL}
         />
       ); 
     });
@@ -66,22 +69,10 @@ class RepositoryBuilds extends Component {
           </tr>
         </thead>
         <tbody>
-          {thebuilds}
+          {buildsDisplay}
         </tbody>
       </table>
     );
-  }
-  
-  getRepository() {
-    var pathArray = window.location.pathname.split( '/' );
-    alert(pathArray[5]));
-    return pathArray[5];
-  }
-
-  getToken() {
-    var pathArray = window.location.pathname.split( '/' );
-    alert(pathArray[6]));
-    return pathArray[6];
   }
 }
 

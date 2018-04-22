@@ -11,7 +11,8 @@ class Step extends Component {
     super(props);
     this.state = {
       statusIcon: props.statusIcon,
-      statusColor: props.statusColor
+      statusColor: props.statusColor,
+      statusTask: props.statusTask
     };
   }
   
@@ -26,7 +27,7 @@ class Step extends Component {
   render() {
     var iconClass = "fa " + this.props.statusIcon + " " + this.props.statusColor;
     return (
-      <div className="right"><i className={ iconClass } aria-hidden="true"></i></div>
+      <div id={ this.props.statusTask } className="right"><i className={ iconClass } aria-hidden="true"></i></div>
     );
   }
 }

@@ -12,58 +12,40 @@ class Steps extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      steps: props.steps,
       buildID: props.buildID,
-      steps: []
+      token: 'SailAway77'
     };
-    this.tick();
   }
 
   tick() {
-    var repository = $this.$repositorygetRepository();
-    var token = $this.getToken();
-    this.serverRequest = $.get('https://www.proofroom.net/probo-api/repository-build-status/' + $repository + '/' + $token + '?nocache=' + (new Date()).getTime(), function(result) {
-      var buildID = this.state.buildID;
-      result.builds.map(function(item, index) {
-        if (item.buildID === buildID) {
-          this.setState({
-            steps: item.steps
-          });
-        }
-        return item;
-      }.bind(this));
+    this.serverRequest = $.get('https://www.proofroom.net/probo-api/specific-build-status/' + this.state.buildID+ '/' + this.state.token, function(result) {
+      this.setState({
+        steps: result.steps
+      });
     }.bind(this));
   }
 
   componentDidMount() {
-    this.interval = setInterval(this.tick.bind(this), 5000);
-  }
-
-  getRepository() {
-    var pathArray = window.location.pathname.split( '/' );
-    alert(pathArray[5]);
-    return pathArray[5];
-  }
-
-  getToken() {
-    var pathArray = window.location.pathname.split( '/' );
-    alert(pathArray[6]);
-    return pathArray[6];
+    this.interval = setInterval(this.tick.bind(this), 1000);
   }
 
   render() {
-    var steps = this.state.steps.map(function(item, index) {
+    var steps = this.state.steps;
+    var stepsDisplay = steps.map(function(item, index) {
       return (      
         <Step 
           key = { index }
           statusIcon = { item.statusIcon }
           statusColor = { item.statusColor }
+          statusTask = { item.statusTask }
         />
       );
     });
 
     return (
       <div className="right">
-        { steps }
+        { stepsDisplay }
         <div className="clear"></div>
         <button className="button button--success disabled button-sm">View Build</button>
         <button className="button button--success button-sm">Build Details</button>
