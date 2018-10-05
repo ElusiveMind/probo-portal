@@ -25,6 +25,7 @@ RUN yum -y install epel-release && \
 RUN yum -y install \
   curl \
   git2u \
+  mariadb \
   which \
   wget \
   gettext \
