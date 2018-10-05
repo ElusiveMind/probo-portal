@@ -8,8 +8,8 @@
 #echo "CREATE DATABASE probo" | mysql -uroot -pproboci
 
 # Do the base installation of Drupal
-cd /var/www/html/web
-drush -y si standard \
+sleep 15
+drush -y -r /var/www/html/web si standard \
   --db-url=mysql://${PROBO_DB_USERNAME}:${PROBO_DB_PASSWORD}@${PROBO_DB_HOSTNAME}/${PROBO_DB_DATABASE} \
   --account-pass="${PROBO_ADMIN_ACCOUNT_PASSWORD}" \
   --account-name="${PROBO_ADMIN_ACCOUNT_USERNAME}" \
