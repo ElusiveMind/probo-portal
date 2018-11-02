@@ -1,19 +1,21 @@
 #!/bin/bash
 
-# Initialize MariaDB and install our database for use by Drupal.
-#mysql_install_db --user=mysql
-#mysqld_safe --user=mysql &
-#sleep 15
-#mysqladmin -uroot password 'proboci'
-#echo "CREATE DATABASE probo" | mysql -uroot -pproboci
+# Only run our Drupal install if we do not have a Drupal install currently.
+if [ ! -d "/var/www/html/web" ]; then
+  # Install Drupal via composer and do so as the apache user.
+  rm -rf /var/www/html
+  composer create-project drupal-composer/drupal-project:8.x-dev /var/www/html --stability dev --no-interaction
 
-# Do the base installation of Drupal
-drush -y -r /var/www/html/web si standard \
-  --db-url=mysql://${PROBO_DB_USERNAME}:${PROBO_DB_PASSWORD}@${PROBO_DB_HOSTNAME}/${PROBO_DB_DATABASE} \
-  --account-pass="${PROBO_ADMIN_ACCOUNT_PASSWORD}" \
-  --account-name="${PROBO_ADMIN_ACCOUNT_USERNAME}" \
-  --account-mail="${PROBO_ADMIN_ACCOUNT_EMAIL}" \
-  --site-name="Open Source Probo Portal"
+  # Do the base installation of Drupal
+  drush -y -r /var/www/html/web si standard \
+    --db-url=mysql://$PORTAL_DB_USERNAME:$PORTAL_DB_PASSWORD@$PORTAL_DB_HOSTNAME/$PORTAL_DB_DATABASE \
+    --account-pass="$PORTAL_ADMIN_ACCOUNT_PASSWORD" \
+    --account-name="$PORTAL_ADMIN_ACCOUNT_USERNAME" \
+    --account-mail="$PORTAL_ADMIN_ACCOUNT_EMAIL" \
+    --site-name="Open Source Probo Portal"
+fi
+
+# Change the permissions of the web files to the Apache user.
 chown -R apache:apache /var/www/html
 
 # Make sure we're not confused by old, incompletely-shutdown httpd
@@ -21,4 +23,5 @@ chown -R apache:apache /var/www/html
 # if it thinks it is already running.
 rm -rf /run/httpd/* /tmp/httpd*
 
+# Start me up.
 exec /usr/sbin/apachectl -DFOREGROUND

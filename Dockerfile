@@ -83,6 +83,4 @@ RUN chown -R apache:apache /var/www/html
 ADD conf/run-httpd.sh /run-httpd.sh
 RUN chmod -v +x /run-httpd.sh
 
-VOLUME ["/var/www/html", "/var/www/html/web/modules/contrib", "/var/www/html/web/modules/custom"]
-
 CMD ["/run-httpd.sh"]
