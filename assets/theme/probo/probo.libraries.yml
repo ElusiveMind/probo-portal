@@ -1,6 +1,0 @@
-global-styling:
-  version: 8.x-1.x
-  css:
-    base:
-      css/drupal-module.css: {}
-      css/probo.css: {}
