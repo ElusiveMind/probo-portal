@@ -1,11 +1,7 @@
 #!/bin/bash
 
 # Only run our Drupal install if we do not have a Drupal install currently.
-if [ ! -d "/var/www/html/web" ]; then
-  # Install Drupal via composer and do so as the apache user.
-  rm -rf /var/www/html
-  composer create-project drupal-composer/drupal-project:8.x-dev /var/www/html --stability dev --no-interaction
-
+if [ ! -f "/var/www/html/web/sites/default/settings.php" ]; then
   # Do the base installation of Drupal
   drush -y -r /var/www/html/web si standard \
     --db-url=mysql://$PORTAL_DB_USERNAME:$PORTAL_DB_PASSWORD@$PORTAL_DB_HOSTNAME/$PORTAL_DB_DATABASE \
@@ -13,6 +9,9 @@ if [ ! -d "/var/www/html/web" ]; then
     --account-name="$PORTAL_ADMIN_ACCOUNT_USERNAME" \
     --account-mail="$PORTAL_ADMIN_ACCOUNT_EMAIL" \
     --site-name="Open Source Probo Portal"
+
+  drush -y en -r /var/www/html/web admin_toolbar module_filter smtp probo proboci
+
 fi
 
 # Change the permissions of the web files to the Apache user.

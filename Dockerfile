@@ -5,7 +5,7 @@ LABEL name="Containerized Drupal Portal User Interface for ProboCI OSS Server"
 LABEL description="This is our Docker container for the open source version of ProboCI."
 LABEL author="Michael R. Bagnall <mrbagnall@icloud.com>"
 LABEL vendor="ProboCI, LLC."
-LABEL version="0.10"
+LABEL version="0.11"
 
 # Set up our standard binary paths.
 ENV PATH /usr/local/src/vendor/bin/:/usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -76,7 +76,7 @@ RUN chown -R apache:apache /var/www/mysql-admin
 # Install Drupal via composer and do so as the apache user.
 RUN rm -rf /var/www/html
 RUN composer create-project drupal-composer/drupal-project:8.x-dev /var/www/html --stability dev --no-interaction
-RUN composer --working-dir=/var/www/html install drupal/admin_toolbar:^1.0 drupal/module_filter:^3.0 drupal/smtp:^1.0 drupal/probo:1.x-dev drupal/proboci:1.x-dev
+RUN composer --working-dir=/var/www/html/web install drupal/admin_toolbar:^1.0 drupal/module_filter:^3.0 drupal/smtp:^1.0 drupal/probo:1.x-dev drupal/proboci:1.x-dev
 RUN chown -R apache:apache /var/www/html
 
 # Simple startup script to avoid some issues observed with container restart 
