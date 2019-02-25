@@ -52,7 +52,7 @@ RUN yum -y install \
 RUN curl -sS https://getcomposer.org/installer | php -- \
   --install-dir=/usr/local/bin \
   --filename=composer \
-  --version=1.6.2 && \
+  --version=1.8.4 && \
   composer \
   --working-dir=/usr/local/src/ \
   global \
