@@ -76,7 +76,7 @@ RUN chown -R apache:apache /var/www/mysql-admin
 # Install Drupal via composer and do so as the apache user.
 RUN rm -rf /var/www/html
 RUN composer create-project drupal-composer/drupal-project:8.x-dev /var/www/html --stability dev --no-interaction
-RUN composer --working-dir=/var/www/html/web install drupal/admin_toolbar:^1.0 drupal/module_filter:^3.0 drupal/smtp:^1.0 drupal/probo:1.x-dev drupal/proboci:1.x-dev
+RUN composer --working-dir=/var/www/html/web require drupal/admin_toolbar:^1.0 drupal/module_filter:^3.0 drupal/smtp:^1.0 drupal/probo:1.x-dev drupal/proboci:1.x-dev
 RUN chown -R apache:apache /var/www/html
 
 # Simple startup script to avoid some issues observed with container restart 
