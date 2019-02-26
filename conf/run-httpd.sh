@@ -22,6 +22,8 @@ if [ ! -f "/var/www/html/web/sites/default/settings.php" ]; then
   drush -y pm:enable -r /var/www/html/web admin_toolbar admin_toolbar_tools module_filter smtp probo
   drush -y theme:enable proboci
   drush -y theme:uninstall bartik
+  drush -y cset system.theme default proboci
+  drush -y cset system.site page.front '/probo'
 
 fi
 
