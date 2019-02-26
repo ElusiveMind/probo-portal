@@ -19,7 +19,7 @@ if [ ! -f "/var/www/html/web/sites/default/settings.php" ]; then
     --account-mail="$PORTAL_ADMIN_ACCOUNT_EMAIL" \
     --site-name="Open Source Probo Portal"
 
-  drush -y pm:enable -r /var/www/html/web admin_toolbar module_filter smtp probo
+  drush -y pm:enable -r /var/www/html/web admin_toolbar admin_toolbar_tools module_filter smtp probo
   drush -y theme:enable proxboci
 
 fi
