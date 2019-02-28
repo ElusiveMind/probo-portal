@@ -4,8 +4,8 @@ FROM centos:7
 LABEL name="Containerized Drupal Portal User Interface for ProboCI OSS Server"
 LABEL description="This is our Docker container for the open source version of ProboCI."
 LABEL author="Michael R. Bagnall <mrbagnall@icloud.com>"
-LABEL vendor="ProboCI, LLC., FlyingFlip Studios"
-LABEL version="0.08"
+LABEL vendor="ProboCI, LLC."
+LABEL version="0.12"
 
 # Set up our standard binary paths.
 ENV PATH /usr/local/src/vendor/bin/:/usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -25,7 +25,7 @@ RUN yum -y install epel-release && \
 RUN yum -y install \
   curl \
   git2u \
-  mariadb101u-server.x86_64 \
+  mariadb \
   which \
   wget \
   gettext \
@@ -52,7 +52,7 @@ RUN yum -y install \
 RUN curl -sS https://getcomposer.org/installer | php -- \
   --install-dir=/usr/local/bin \
   --filename=composer \
-  --version=1.6.2 && \
+  --version=1.8.4 && \
   composer \
   --working-dir=/usr/local/src/ \
   global \
@@ -73,15 +73,9 @@ COPY etc/php.ini /etc/php.ini
 COPY phpmyadmin /var/www/mysql-admin
 RUN chown -R apache:apache /var/www/mysql-admin
 
-# Install Drupal via composer and do so as the apache user.
-RUN rm -rf /var/www/html
-RUN composer create-project drupal-composer/drupal-project:8.x-dev /var/www/html --stability dev --no-interaction
-RUN chown -R apache:apache /var/www/html
-
 # Simple startup script to avoid some issues observed with container restart 
 ADD conf/run-httpd.sh /run-httpd.sh
 RUN chmod -v +x /run-httpd.sh
 
-VOLUME ["/var/www/html", "/var/www/html/web/modules/contrib", "/var/www/html/web/modules/custom"]
-
 CMD ["/run-httpd.sh"]
+ 

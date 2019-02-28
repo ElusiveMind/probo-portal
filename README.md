@@ -3,7 +3,17 @@ This is the Drupal user front end for the ProboCI Open Source Server for which i
 
 The plan for this project is to have a fully functional Drupal 8 based portal for administering and looking at builds in the Open Source Probo.CI system.
 
-#### Last Updated: April 16, 2018
+#### Last Updated: February 26, 2019
+
+v.12 - February 26, 2019
+  - Moved site install and composer scripts to run-httpsd.sh
+  - Move the proboci theme into the proper drush script to enable
+
+v.11 - February 25, 2019
+  - Corrected versions of contributed modules.
+  - Removed duplicate download from composer
+  - Enabled modules after site install
+
 v.08 - April 16, 2018
   - Moved Drupal installation into the Dockerfile and set up mounts.
 
