@@ -16,14 +16,14 @@ if [ ! -f "/var/www/html/web/sites/default/settings.php" ]; then
     --db-url=mysql://$PORTAL_DB_USERNAME:$PORTAL_DB_PASSWORD@$PORTAL_DB_HOSTNAME/$PORTAL_DB_DATABASE \
     --account-pass="$PORTAL_ADMIN_ACCOUNT_PASSWORD" \
     --account-name="$PORTAL_ADMIN_ACCOUNT_USERNAME" \
-    --account-mail="$PORTAL_ADMINACCO_UNT_EMAIL" \
+    --account-mail="$PORTAL_ADMIN_ACCOUNT_EMAIL" \
     --site-name="Open Source Probo Portal"
 
   drush -y pm:enable -r /var/www/html/web admin_toolbar admin_toolbar_tools module_filter smtp probo
-  drush -y theme:enable proboci
-  drush -y theme:uninstall bartik
-  drush -y cset system.theme default proboci
-  drush -y cset system.site page.front '/probo'
+  drush -y theme:enable -r /var/www/html/web proboci
+  drush -y cset system.theme -r /var/www/html/web default proboci
+  drush -y cset system.site -r /var/www/html/web page.front '/probo'
+  drush -y cset system.site -r /var/www/html/web page.403 '/user/login'
 
 fi
 
