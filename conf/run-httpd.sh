@@ -24,7 +24,9 @@ if [ ! -f "/var/www/html/web/sites/default/settings.php" ]; then
   drush -y cset system.theme -r /var/www/html/web default proboci
   drush -y cset system.site -r /var/www/html/web page.front '/probo'
   drush -y cset system.site -r /var/www/html/web page.403 '/user/login'
-
+else
+  # If the imnstall exists, then try to do an update.
+  composer --working-dir=/var/www/html update
 fi
 
 # Change the permissions of the web files to the Apache user.
