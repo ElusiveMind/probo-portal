@@ -27,6 +27,7 @@ if [ ! -f "/var/www/html/web/sites/default/settings.php" ]; then
 else
   # If the imnstall exists, then try to do an update.
   composer --working-dir=/var/www/html update
+  drush -y -r /var/www/html/web updb
 fi
 
 # Change the permissions of the web files to the Apache user.
