@@ -24,7 +24,20 @@ if [ ! -f "/var/www/html/web/sites/default/settings.php" ]; then
   drush -y cset system.theme -r /var/www/html/web default proboci
   drush -y cset system.site -r /var/www/html/web page.front '/probo'
   drush -y cset system.site -r /var/www/html/web page.403 '/user/login'
-
+  drush -y cset probo.probosettings -r /var/www/html/web probo_builds_domain "$PROBO_BUILDS_DOMAIN"
+  drush -y cset probo.probosettings -r /var/www/html/web probo_builds_protocol "$PROBO_BUILDS_PROTOCOL"
+  drush -y cset probo.probosettings -r /var/www/html/web asset_receiver_url_port "$PROBO_ASSET_RECEIVER_URL"
+  drush -y cset probo.probosettings -r /var/www/html/web asset_receiver_token "$PROBO_ASSET_RECEIVER_TOKEN"
+  drush -y cset probo.probosettings -r /var/www/html/web base_url "$PROBO_BASE_URL"
+  drush -y cset probo.probosettings -r /var/www/html/web probo_mailcatcher_domain "$PROBO_MAILCATCHER"
+  drush -y cset probo.probosettings -r /var/www/html/web probo_solr_domain "$PROBO_SOLR"
+  drush -y cset probo.probosettings -r /var/www/html/web probo_loom_stream_url "$PROBO_LOOM_URL"
+  drush -y cset probo.probosettings -r /var/www/html/web probo_loom_stream_token "$PROBO_LOOM_TOKEN"
+  drush -y cset probo.probosettings -r /var/www/html/web probo_api_token "$PROBO_API_TOKEN"
+else
+  # If the imnstall exists, then try to do an update.
+  composer --working-dir=/var/www/html update
+  drush -y -r /var/www/html/web updb
 fi
 
 # Change the permissions of the web files to the Apache user.

@@ -3,4 +3,5 @@ docker-compose.yml
 assets/theme/probo/node_modules
 assets/theme/probo/builds/app/js/app.js
 postgresql
+mysql
 docroot
