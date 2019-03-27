@@ -31,7 +31,8 @@ RUN yum -y install \
   gettext \
   gd-devel.x86_64 \
   mod_ssl.x86_64 \
-  docker-client
+  docker-client \
+  npm
 
 RUN yum -y install \
   php71u \
