@@ -60,7 +60,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
   --working-dir=/usr/local/src/ \
   global \
   require \
-  drush/drush:8.* && \
+  drush/drush:9.* && \
   ln -s /usr/local/src/vendor/bin/drush /usr/bin/drush
 
 # Install Drupal Console
