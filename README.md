@@ -5,6 +5,12 @@ The plan for this project is to have a fully functional Drupal 8 based portal fo
 
 #### Last Updated: May 24, 2019
 
+v.17 - May 31, 2019
+  - Updated to Remi Repositories
+  - Updated to PHP 7.2
+  - Added mCrypt to PHP 7.2
+  - Added SSH2 to PHP 7.2
+
 v.16 - May 24, 2019
   - Added LDAP module
 
