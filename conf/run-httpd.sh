@@ -36,9 +36,7 @@ if [ ! -f "/var/www/html/web/sites/default/settings.php" ]; then
   drush -y cset probo.probosettings -r /var/www/html/web probo_api_token "$PROBO_API_TOKEN"
 else
   # If the imnstall exists, then try to do an update.
-  chmod -R root:root /var/www/html
   composer --working-dir=/var/www/html update
-  chmod -R apache:apache /var/www/html
   drush -y -r /var/www/html/web updb
 fi
 

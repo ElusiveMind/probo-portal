@@ -33,12 +33,15 @@ RUN yum -y install \
   gd-devel.x86_64 \
   mod_ssl.x86_64 \
   docker-client \
-  npm
+  npm \
+  zip \
+  unzip
 
 # Install PHP modules
 RUN yum-config-manager --enable remi-php72
 RUN yum -y install \
   php \
+  php72-zip \
   php-bcmath \
   php-curl \
   php-gd \
