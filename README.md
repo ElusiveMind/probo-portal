@@ -3,7 +3,7 @@ This is the Drupal user front end for the ProboCI Open Source Server for which i
 
 The plan for this project is to have a fully functional Drupal 8 based portal for administering and looking at builds in the Open Source Probo.CI system.
 
-#### Last Updated: May 24, 2019
+#### Last Updated: May 31, 2019
 
 v.17 - May 31, 2019
   - Updated to Remi Repositories
