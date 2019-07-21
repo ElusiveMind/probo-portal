@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Set up our loading screen
-
+rm -rf /run/httpd/* /tmp/httpd*
 mv -f /etc/httpd/conf/loading-httpd.conf /etc/httpd/conf/httpd.conf
 chown -R apache:apache /var/www/loading
-/usr/sbin/apachectl start
+/usr/sbin/apachectl
 
 # Only run our Drupal install if we do not have a Drupal install currently.
 if [ ! -f "/var/www/html/web/sites/default/settings.php" ]; then
@@ -18,8 +18,10 @@ if [ ! -f "/var/www/html/web/sites/default/settings.php" ]; then
   composer --working-dir=/var/www/html require drupal/proboci:1.x-dev
 
   # Replace the Token place holder in our react app with the one we have in docker-compose.yml
-  envsubst < /var/www/html/web/themes/contrib/proboci/src/Index.js > /var/www/html/web/themes/contrib/proboci/src/Index.js
-  envsubst < /var/www/html/web/themes/contrib/proboci/src/Steps.js > /var/www/html/web/themes/contrib/proboci/src/Steps.js
+  envsubst < /var/www/html/web/themes/contrib/proboci/src/index.js > /var/www/html/web/themes/contrib/proboci/src/index.probo
+  envsubst < /var/www/html/web/themes/contrib/proboci/src/Steps.js > /var/www/html/web/themes/contrib/proboci/src/Steps.probo
+  mv -f /var/www/html/web/themes/contrib/proboci/src/Steps.probo /var/www/html/web/themes/contrib/proboci/src/Steps.js
+  mv -f /var/www/html/web/themes/contrib/proboci/src/index.probo /var/www/html/web/themes/contrib/proboci/src/index.js
 
   # Build the react app and rename it.
   cd /var/www/html/web/themes/contrib/proboci/
@@ -62,7 +64,7 @@ fi
 # the web files to the Apache user.
 chown -R apache:apache /var/www/html
 mv -f /etc/httpd/conf/probo-httpd.conf /etc/httpd/conf/probo.conf
-/usr/sbin/apache stop
+pkill httpd
 
 # Make sure we're not confused by old, incompletely-shutdown httpd
 # context after restarting the container.  httpd won't start correctly
