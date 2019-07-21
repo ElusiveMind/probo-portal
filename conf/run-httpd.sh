@@ -63,7 +63,7 @@ fi
 # Switch over from our loading screen and change the permissions of 
 # the web files to the Apache user.
 chown -R apache:apache /var/www/html
-mv -f /etc/httpd/conf/probo-httpd.conf /etc/httpd/conf/probo.conf
+mv -f /etc/httpd/conf/probo-httpd.conf /etc/httpd/conf/httpd.conf
 pkill httpd
 
 # Make sure we're not confused by old, incompletely-shutdown httpd
