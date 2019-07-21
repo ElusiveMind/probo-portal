@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Set up our loading screen
+
+mv -f /etc/httpd/conf/loading-httpd.conf /etc/httpd/conf/httpd.conf
+chown -R apache:apache /var/www/loading
+/usr/sbin/apachectl start
+
 # Only run our Drupal install if we do not have a Drupal install currently.
 if [ ! -f "/var/www/html/web/sites/default/settings.php" ]; then
   # Install Drupal via composer and do so as the apache user.
@@ -10,6 +16,18 @@ if [ ! -f "/var/www/html/web/sites/default/settings.php" ]; then
   composer --working-dir=/var/www/html require drupal/smtp:^1.0
   composer --working-dir=/var/www/html require drupal/probo:1.x-dev
   composer --working-dir=/var/www/html require drupal/proboci:1.x-dev
+
+  # Replace the Token place holder in our react app with the one we have in docker-compose.yml
+  envsubst < /var/www/html/web/themes/contrib/proboci/src/Index.js > /var/www/html/web/themes/contrib/proboci/src/Index.js
+  envsubst < /var/www/html/web/themes/contrib/proboci/src/Steps.js > /var/www/html/web/themes/contrib/proboci/src/Steps.js
+
+  # Build the react app and rename it.
+  cd /var/www/html/web/themes/contrib/proboci/
+  npm install
+  npm run build
+  cd /var/www/html/web/themes/contrib/proboci/build/static/js
+  rm -rf *.map
+  mv main* probo.js
 
   # Do the base installation of Drupal
   drush -y -r /var/www/html/web si standard \
@@ -40,8 +58,11 @@ else
   drush -y -r /var/www/html/web updb
 fi
 
-# Change the permissions of the web files to the Apache user.
+# Switch over from our loading screen and change the permissions of 
+# the web files to the Apache user.
 chown -R apache:apache /var/www/html
+mv -f /etc/httpd/conf/probo-httpd.conf /etc/httpd/conf/probo.conf
+/usr/sbin/apache stop
 
 # Make sure we're not confused by old, incompletely-shutdown httpd
 # context after restarting the container.  httpd won't start correctly
