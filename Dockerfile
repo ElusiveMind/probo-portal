@@ -20,22 +20,20 @@ ENV LC_ALL en_US.utf8
 RUN yum -y install epel-release && \
   yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm && \
   rpm -Uvh https://centos7.iuscommunity.org/ius-release.rpm && \
-  yum -y update
-
-# Install our common set of commands that we will need to do the various things.
-RUN yum -y install \
-  curl \
-  git2u \
-  mariadb \
-  which \
-  wget \
-  gettext \
-  gd-devel.x86_64 \
-  mod_ssl.x86_64 \
-  docker-client \
-  npm \
-  zip \
-  unzip
+  yum -y update && \
+  yum -y install \
+    curl \
+    git2u \
+    mariadb \
+    which \
+    wget \
+    gettext \
+    gd-devel.x86_64 \
+    mod_ssl.x86_64 \
+    docker-client \
+    npm \
+    zip \
+    unzip
 
 # Install PHP modules
 RUN yum-config-manager --enable remi-php72 && \
