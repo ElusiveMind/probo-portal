@@ -5,11 +5,7 @@ if [ ! -f "/var/www/html/web/sites/default/settings.php" ]; then
   # Install Drupal via composer and do so as the apache user.
   rm -rf /var/www/html
   composer create-project drupal-composer/drupal-project:8.x-dev /var/www/html --stability dev --no-interaction
-  composer --working-dir=/var/www/html require drupal/admin_toolbar:^1.0
-  composer --working-dir=/var/www/html require drupal/module_filter:^3.0
-  composer --working-dir=/var/www/html require drupal/smtp:^1.0
-  composer --working-dir=/var/www/html require drupal/probo:1.x-dev
-  composer --working-dir=/var/www/html require drupal/proboci:1.x-dev
+  composer --working-dir=/var/www/html require drupal/admin_toolbar:^2.0 drupal/module_filter:^3.0 drupal/smtp:^1.0 drupal/probo:1.x-dev drupal/proboci:1.x-dev
 
   # Do the base installation of Drupal
   drush -y -r /var/www/html/web si standard \

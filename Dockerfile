@@ -5,7 +5,7 @@ LABEL name="Containerized Drupal Portal User Interface for ProboCI OSS Server"
 LABEL description="This is our Docker container for the open source version of ProboCI."
 LABEL author="Michael R. Bagnall <mrbagnall@icloud.com>"
 LABEL vendor="ProboCI, LLC."
-LABEL version="0.14"
+LABEL version="0.15"
 
 # Set up our standard binary paths.
 ENV PATH /usr/local/src/vendor/bin/:/usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -16,10 +16,12 @@ ENV TERM xterm
 # Fix command line compile issue with bundler.
 ENV LC_ALL en_US.utf8
 
-# Install and enable repositories RUN yum -y update && \
-RUN yum -y install epel-release && \
-  rpm -Uvh https://centos7.iuscommunity.org/ius-release.rpm && \
-  yum -y update
+# Install and enable repositories
+RUN yum -y update && \
+    yum -y install epel-release && \
+    yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm && \
+    rpm -Uvh https://centos7.iuscommunity.org/ius-release.rpm && \
+    yum -y update
 
 # Install our common set of commands that we will need to do the various things.
 RUN yum -y install \
@@ -33,32 +35,39 @@ RUN yum -y install \
   mod_ssl.x86_64 \
   docker-client
 
-RUN yum -y install \
-  php71u \
-  php71u-cli \
-  php71u-curl \
-  php71u-gd \
-  php71u-imap \
-  php71u-mbstring \
-  php71u-mcrypt \
-  php71u-mysqlnd \
-  php71u-odbc \
-  php71u-pear \
-  php71u-pecl-imagick \
-  php71u-pecl-zendopcache \
-  php71u-json \
-  php71u-xml
+# Install PHP modules
+RUN yum-config-manager --enable remi-php73 && \
+  yum -y install \
+    php \
+    php-cli \
+    php-curl \
+    php-gd \
+    php-imap \
+    php-mbstring \
+    php-mysqlnd \
+    php-mysql \
+    php-odbc \
+    php-pear \
+    php-pecl-imagick \
+    php-pecl-json \
+    php-pecl-opcache \
+    php-pecl-redis \
+    php-pecl-memcached \
+    php-bcmath \
+    php-xml \
+    php-ldap \
+    php-devel
 
 # Install Composer and Drush 
 RUN curl -sS https://getcomposer.org/installer | php -- \
   --install-dir=/usr/local/bin \
   --filename=composer \
-  --version=1.8.4 && \
+  --version=1.9.2 && \
   composer \
   --working-dir=/usr/local/src/ \
   global \
   require \
-  drush/drush:8.* && \
+  drush/drush:10.* && \
   ln -s /usr/local/src/vendor/bin/drush /usr/bin/drush
 
 # Install Drupal Console
