@@ -5,7 +5,7 @@ LABEL name="Containerized Drupal Portal User Interface for ProboCI OSS Server"
 LABEL description="This is our Docker container for the open source version of ProboCI."
 LABEL author="Michael R. Bagnall <mbagnall@zivtech.com>"
 LABEL vendor="ProboCI, LLC."
-LABEL version="0.18"
+LABEL version="0.20"
 
 # Set up our standard binary paths.
 ENV PATH /usr/local/src/vendor/bin/:/usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -36,10 +36,11 @@ RUN yum -y install \
   docker-client \
   npm \
   zip \
-  unzip
+  unzip \
+  libsodium-devel
 
 # Install PHP modules
-RUN yum-config-manager --enable remi-php73 && \
+RUN yum-config-manager --enable remi-php74 && \
   yum -y install \
     php \
     php-cli \
@@ -48,13 +49,13 @@ RUN yum-config-manager --enable remi-php73 && \
     php-imap \
     php-mbstring \
     php-mysqlnd \
-    php-mysql \
     php-odbc \
     php-pear \
     php-pecl-imagick \
     php-pecl-json \
-    php-pecl-opcache \
-    php-pecl-redis \
+    php-pecl-uploadprogress \
+    php-pecl-apcu \
+    php-pecl-redis5 \
     php-pecl-memcached \
     php-bcmath \
     php-xml \
@@ -62,22 +63,19 @@ RUN yum-config-manager --enable remi-php73 && \
     php-devel \
     php-pecl-ssh2
 
+RUN pecl install libsodium
+
 # Install Composer and Drush 
 RUN curl -sS https://getcomposer.org/installer | php -- \
   --install-dir=/usr/local/bin \
   --filename=composer \
-  --version=1.9.2 && \
+  --version=1.10.5 && \
   composer \
   --working-dir=/usr/local/src/ \
   global \
   require \
   drush/drush:10.* && \
   ln -s /usr/local/src/vendor/bin/drush /usr/bin/drush
-
-# Install Drupal Console
-RUN curl https://drupalconsole.com/installer -L -o /drupal.phar && \
-    cp /drupal.phar /bin/drupal && \
-    chmod 755 /bin/drupal
 
 # Move our Apache and PHP configuration into position.
 COPY etc/httpd/conf/loading-httpd.conf /etc/httpd/conf/loading-httpd.conf
